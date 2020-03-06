@@ -16,24 +16,25 @@ public class PlayerController : MonoBehaviour {
     public Vector3 lastvelocity = Vector3.zero;
     private Rigidbody rb;
 	private int count;
+    private int winCount;
 
 
-	// At the start of the game..
-	void Start ()
-	{
-		// Assign the Rigidbody component to our private rb variable
-		rb = GetComponent<Rigidbody>();
+    // At the start of the game..
+    void Start()
+    {
+        // Assign the Rigidbody component to our private rb variable
+        rb = GetComponent<Rigidbody>();
 
-		// Set the count to zero 
-		count = 0;
+        // Set the count to zero 
+        count = 0;
 
-		// Run the SetCountText function to update the UI (see below)
-		SetCountText ();
+        // Run the SetCountText function to update the UI (see below)
+        SetCountText();
 
-		// Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
-		winText.text = "";
-	}
-
+        // Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
+        winText.text = "";
+        winCount = GameObject.FindGameObjectsWithTag("Pick Up").Length;
+    }
 	// Each physics step..
 	void FixedUpdate ()
 	{
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 		countText.text = "Count: " + count.ToString ();
 
 		// Check if our 'count' is equal to or exceeded 12
-		if (count >= 12) 
+		if (count >= winCount ) 
 		{
 			// Set the text value of our 'winText'
 			winText.text = "You Win!";
